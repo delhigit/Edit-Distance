@@ -1,0 +1,39 @@
+int minDistance(string word1, string word2) {
+        
+        int length1 = word1.size();
+        int length2 = word2.size();
+        
+        if(length1 == 0)
+        return length2;
+        
+        if(length2 == 0)
+        return length1;
+        
+        int solution[length1 + 1][length2 + 1];
+        
+        for(int i = 0; i <= length1; i++)
+        {
+          solution[i][0] = i;
+        }
+        
+        for(int i = 0; i <= length2; i++)
+        {
+          solution[0][i] = i;
+        }
+        
+        for(int i = 1; i <= length1; i++)
+        {
+            for(int j = 1; j <= length2; j++)
+            {
+                 if(word1[i-1] == word2[j-1])
+                  solution[i][j] = solution[i-1][j-1];
+                
+                else
+                {
+                    solution[i][j] = min(min(solution[i-1][j], solution[i][j-1]), solution[i-1][j-1]) + 1;
+                }
+                
+            }
+        }
+        return solution[length1][length2];
+    }
